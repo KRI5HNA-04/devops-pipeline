@@ -1,0 +1,27 @@
+name: CI Pipeline
+
+on:
+  push:
+    branches: [main] #it restricts the workflow to run only on pushes to the main branch
+    # it only run when something is pushed onto the main production branch
+
+jobs:
+  build:
+    runs-on: ubuntu-latest #defines where it runs
+
+    #it defines what steps to do
+    steps:
+      - name: Checkout code
+        # it is the prebuilt function available in github action
+        uses: actions/checkout@v5
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Run tests
+        run: npm run test
